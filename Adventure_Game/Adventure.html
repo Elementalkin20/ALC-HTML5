@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Adventure Game</title>
+    </head>
+    <body>
+        <h1>Adventure Game v1.0</h1>
+        <p>made by: Markus Nixon</p>
+        <script>
+            var inventory = {
+                medallions:1,
+                Torch:0,
+                key:0,
+            }
+            Start();
+            
+        function Start(){
+            
+            var playerName = prompt("Who are you?");
+            
+            alert("You wake up in a musty cell, lit by a single torch.");
+            
+            var startGame = confirm("Do you try to escape?");
+            
+                if(startGame){
+                    Cell();
+                }
+                else{
+                    alert("Then Starvation takes you.");
+                }
+            
+        }
+        
+        function Cell(){
+            var cell = prompt("You are chained up to the wall, the chains look rusted beyond imagination").toLowerCase();
+            
+            switch(cell){
+                    
+                case "break chains":
+                    alert("The chains break with considerable ease.");
+                    Cell_Standing();
+                    break;
+                case "break chain":
+                    alert("The chain breaks with considerable ease.");
+                    Cell_Standing();
+                    break;
+                default:
+                    alert("You don't know how to " + cell);
+                    Cell();
+                    break;
+                       }
+        }
+            function Cell_Standing(){
+                var standing = prompt("You are standing in an empty cell made of stone slabs, there is a torch on the wall and a old cot, the rusty metal door is locked.").toLowerCase();
+                
+                switch(standing){
+                        
+                    case "break door":
+                        alert("You slam against the unyielding door, your shoulder hurts. a ragged cloaked figure appears out of nowhere.");
+                        Cloaked_Figure();
+                        break;
+                        }
+        }
+            function Cloaked_Figure(){
+                var figure = prompt("You wnna buy something, like a key perchance?");
+                if(figure == "key" || figure == "buy key" &&
+                   inventory.medallions >= 1){
+                    alert("It swipes a medallion and gives you a key");
+                    inventory.key = inventory.key + 1;
+                    alert("you have "+inventory.key+" key.");
+                    inventory.medallions = inventory.medallions - 1;
+                    alert("You have "+inventory.medallions+" medallions remaining.");
+                }
+            }
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        </script>
+    </body>   
+</html>
