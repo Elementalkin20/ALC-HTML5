@@ -8,9 +8,10 @@
         <p>made by: Markus Nixon</p>
         <script>
             var inventory = {
-                medallions:1,
+                medallions:0,
                 Torch:0,
-                key:0,
+                rusty_key:0,
+                sword:0,
             }
             Start();
             
@@ -56,26 +57,48 @@
                 switch(standing){
                         
                     case "break door":
-                        alert("You slam against the unyielding door, your shoulder hurts. a ragged cloaked figure appears out of nowhere.");
-                        Cloaked_Figure();
+                        if (inventory.sword >= 1){
+                            Dark_Hall();
+                        }
+                        else if(alert("You slam against the unyielding door, your shoulder hurts. a ragged cloaked figure appears out of nowhere.")){
+                            Cloaked_Figure();
+                            break;
+                        }
+                    case "check cot":
+                        alert("You find a medallion in the frame.");
+                        inventory.medallions = inventory.medallions + 1;
+                        Cell_Standing();
+                        break;
+                    default:
+                        alert("You don't know how to " + standing);
+                        Cell_Standing();
                         break;
                         }
         }
             function Cloaked_Figure(){
-                var figure = prompt("You wnna buy something, like a key perchance?");
+                var figure = prompt("You wanna buy something to get out?");
                 if(figure == "key" || figure == "buy key" &&
                    inventory.medallions >= 1){
-                    alert("It swipes a medallion and gives you a key");
-                    inventory.key = inventory.key + 1;
-                    alert("you have "+inventory.key+" key.");
+                    alert("It swipes a medallion and gives you a rusty key.");
+                    inventory.rusty_key = inventory.rusty_key + 1;
+                    alert("you have "+inventory.rusty_key+" rusty key.");
                     inventory.medallions = inventory.medallions - 1;
                     alert("You have "+inventory.medallions+" medallions remaining.");
+                    Cloaked_Figure();
                 }
+                else if(figure == "sword" || figure == "buy sword" && inventory.medallions >= 1){
+                    alert("It swipes a medallion and gives you a sword.");
+                    inventory.sword = inventory.sword + 1;
+                    alert("you have "+inventory.sword+" sword.");
+                    inventory.medallions = inventory.medallions - 1;
+                    alert("You have "+inventory.medallions+" medallions.")
+                    Cloaked_Figure();
+                }
+                else if(Cell_Standing());
+        }
+            function Dark_Hall(){
+                alert("Yuo die!");
             }
-            
-            
-            
-            
             
             
             
