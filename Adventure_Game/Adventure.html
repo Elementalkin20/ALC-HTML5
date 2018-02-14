@@ -9,9 +9,14 @@
         <script>
             var inventory = {
                 medallions:0,
-                torch:0,
                 rusty_key:0,
                 sword:0,
+            }
+            
+            var invList = function(){
+                alert("Medallions = "+ inventory.medallions +
+                     "Keys = "+ inventory.rusty_key +
+                     "Swords = "+ inventory.sword);
             }
             Start();
             
@@ -19,7 +24,7 @@
             
             var playerName = prompt("Who are you?");
             
-            alert("You wake up in a musty cell, lit by a single torch.");
+            alert("You wake up in a musty cell.");
             
             var startGame = confirm("Do you try to escape?");
             
@@ -45,6 +50,9 @@
                     alert("The chain breaks with considerable ease.");
                     Cell_Standing();
                     break;
+                case "inventory":
+                    invList();
+                    Cell();
                 default:
                     alert("You don't know how to " + cell);
                     Cell();
@@ -52,7 +60,7 @@
                        }
             }
             function Cell_Standing(){
-                var standing = prompt("You are standing in an empty cell made of stone slabs, there is a torch on the wall and a old cot, the rusty metal door is locked.").toLowerCase();
+                var standing = prompt("You are standing in an empty cell made of stone slabs, there is an old cot, and a rusty metal cell door.").toLowerCase();
                 
                 switch(standing){
                         
@@ -76,20 +84,17 @@
                         Cell_Standing();
                         break;
                     case "unlock door":
-                        alert("With a creak the door opens into a dark hallway.");
-                        inventory.rusty_key = inventory.rusty_key - 1;
+                        alert("It wasn't locked the entire time!");
+                        alert("You PULL the door open");
                         Dark_Hall();
                         break;
                     case "open door":
                         alert("With a creak the door opens into a dark hallway.");
-                        inventory.rusty_key = inventory.rusty_key - 1;
                         Dark_Hall();
                         break;
-                    case "take torch":
-                        alert("You pull it out of the sconch and hold onto it, it lights the room.");
-                        inventory.torch = inventory.torch = 1;
+                    case "inventory":
+                        invList();
                         Cell_Standing();
-                        break;
                     default:
                         alert("You don't know how to " + standing);
                         Cell_Standing();
@@ -97,7 +102,7 @@
                         }
             }
             function Cloaked_Figure(){
-                var figure = prompt("You wanna buy something to get out?");
+                var figure = prompt("You wanna buy something to get out?").toLowerCase();
                 if(figure == "buy key" && inventory.medallions >= 1){
                     alert("It swipes a medallion and gives you a rusty key.");
                     inventory.rusty_key = inventory.rusty_key + 1;
@@ -118,36 +123,39 @@
                     alert("You can't afford that.");
                     Cell_Standing();
                 }
+                else if(figure == "inventory"){
+                    invList();
+                    Cloaked_Figure();
+                }
                 else if(Cell_Standing());
             }
             function Dark_Hall(){
-                var figure = prompt("The pitch black hallway goes leads left and right.");
-                if(figure == "go left" || figure == "go right" && inventory.torch = 0){
-                    alert("You brave the darkness!");
-                    Mystery_Death();
+                var hall = prompt("The hallway goes left and right.").toLowerCase();
+    
+                switch(hall){
+                    
+                    case "left":
+                        alert("You Die!");
+                        Start();
+                    case "right":
+                        alert("The hall leads to what appears to be a cave-in.")
+                        Cave_In();
+                        break;
+                    case "inventory":
+                        invList();
+                        Dark_Hall();
                 }
-                else if(figure == "go left" && inventory.torch >= 1){
-                    alert("Your torch lightens the hallway.");
-                    Left_Hall();
-                    break;
+            }
+            function Cave_In(){
+                var caveIn = confirm("Do you go back?");
+                
+                if(caveIn){
+                    Dark_Hall();
                 }
-                else if(figure == "go right" && inventory.torch >= 1){
-                    alert("Your torch lightens the hallway.");
-                    Right_Hall();
-                    break;
+                else{
+                    alert("Nothing happens.");
+                    Cave_In();
                 }
-                else if(Cell_Standing());
-            }
-            function Left_Hall(){
-                alert("You Die!");
-            }
-            function Right_Hall(){
-                alert("You Die!");
-            }
-            function Mystery_Death(){
-                alert("You die by unknown circumstances!");
-                Start();
-                break;
             }
             
             
