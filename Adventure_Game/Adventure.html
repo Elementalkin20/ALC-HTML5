@@ -68,6 +68,22 @@
                         alert("You slam against the unyielding door, your shoulder hurts. a ragged cloaked figure appears out of nowhere.");
                         Cloaked_Figure();
                         break;
+                    case "inspect wall":
+                        alert("You can't find any loose stones.");
+                        Cell_Standing();
+                        break;
+                    case "check wall":
+                        alert("You can't find any loose stones.");
+                        Cell_Standing();
+                        break;
+                    case "check floor":
+                        alert("You find a shiny blue stone on the floor.");
+                        Stone();
+                        break;
+                    case "inspect floor":
+                        alert("You find a shiny blue stone on the floor.");
+                        Stone();
+                        break;
                     case "check cot":
                         alert("You found a medallion in the frame.");
                         inventory.medallions = inventory.medallions = 1;
@@ -135,9 +151,18 @@
                 switch(hall){
                     
                     case "left":
-                        alert("You Die!");
-                        Start();
+                        alert("You find stairs leading into darkness.");
+                        Into_The_Darkness();
+                        break;
+                    case "go left":
+                        alert("You find stairs leading into darkness.");
+                        Into_The_Darkness();
+                        break;
                     case "right":
+                        alert("The hall leads to what appears to be a cave-in.")
+                        Cave_In();
+                        break;
+                    case "go right":
                         alert("The hall leads to what appears to be a cave-in.")
                         Cave_In();
                         break;
@@ -157,9 +182,46 @@
                     Cave_In();
                 }
             }
+            function Into_The_Darkness(){
+                alert("Thank you for playing my demo!");
+            }
+            function Stone(){
+                var stone = prompt("As you pick up the stone your vision fogs over, then you find yourself in an empty room with a north and south door.").toLowerCase();
+                
+                switch(stone){
+                        
+                    case "north":
+                        alert("You open the door to find a nasty two-headed troll!");
+                        Troll();
+                        break;
+                    case "north door":
+                        alert("You open the door to find a nasty two-headed troll!");
+                        Troll();
+                        break;
+                    case "south":
+                        alert("The door leads to staris leading up into darkness");
+                        Into_The_Darkness();
+                        break;
+                    case "south door":
+                        alert("The door leads to staris leading up into darkness");
+                        Into_The_Darkness();
+                        break;
+                }
+            }
+            function Troll(){
+                var troll = confirm("Do you slam the door?");
             
-            
-            
+                if(troll){
+                    Stone();
+                }
+                else{
+                    alert("The troll rips you apart, you died!");
+                    Death();
+                }
+            }
+            function Death(){
+                alert("Thank you for playing my demo!");
+            }
             
             
             
