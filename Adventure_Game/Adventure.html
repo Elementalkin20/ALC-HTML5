@@ -50,6 +50,14 @@
                     alert("The chain breaks with considerable ease.");
                     Cell_Standing();
                     break;
+                case "call out":
+                    alert("Nothing happens.");
+                    Cell();
+                    break;
+                case "escape chains":
+                    alert("As you wiggle your hands the chains break apart.");
+                    Cell_Standing();
+                    break;
                 case "inventory":
                     invList();
                     Cell();
@@ -60,12 +68,16 @@
                        }
             }
             function Cell_Standing(){
-                var standing = prompt("You are standing in an empty cell made of stone slabs, there is an old cot, and a rusty metal cell door.").toLowerCase();
+                var standing = prompt("You are standing in an empty cell made of stone slabs, there is an old cot, a rusty metal cell door, and the floor is littered with garbage.").toLowerCase();
                 
                 switch(standing){
                         
                     case "break door":
                         alert("You slam against the unyielding door, your shoulder hurts. a ragged cloaked figure appears out of nowhere.");
+                        Cloaked_Figure();
+                        break;
+                    case "call out":
+                        alert("As you holler a cloaked figure appears in your cell.");
                         Cloaked_Figure();
                         break;
                     case "inspect wall":
@@ -81,6 +93,10 @@
                         Stone();
                         break;
                     case "inspect floor":
+                        alert("You find a shiny blue stone on the floor.");
+                        Stone();
+                        break;
+                    case "search floor":
                         alert("You find a shiny blue stone on the floor.");
                         Stone();
                         break;
@@ -119,7 +135,15 @@
             }
             function Cloaked_Figure(){
                 var figure = prompt("You wanna buy something to get out?").toLowerCase();
-                if(figure == "buy key" && inventory.medallions >= 1){
+                if(figure == "buy sword" || figure == "buy key" && inventory.medallions < 1){
+                    alert("You have nothing to buy it with.");
+                    Cell_Standing();
+                }
+                else if(figure == "sword" || figure == "key" && inventory.medallions < 1){
+                    alert("You have nothing to buy it with.");
+                    Cell_Standing();
+                }
+                else if(figure == "buy key" || figure == "key" && inventory.medallions >= 1){
                     alert("It swipes a medallion and gives you a rusty key.");
                     inventory.rusty_key = inventory.rusty_key + 1;
                     alert("you have "+inventory.rusty_key+" rusty key.");
@@ -127,7 +151,7 @@
                     alert("You have "+inventory.medallions+" medallions remaining.");
                     Cloaked_Figure();
                 }
-                else if(figure == "buy sword" && inventory.medallions >= 1){
+                else if(figure == "buy sword" || figure == "sword" && inventory.medallions >= 1){
                     alert("It swipes a medallion and gives you a sword.");
                     inventory.sword = inventory.sword + 1;
                     alert("you have "+inventory.sword+" sword.");
@@ -135,8 +159,8 @@
                     alert("You have "+inventory.medallions+" medallions.")
                     Cloaked_Figure();
                 }
-                else if(figure == "buy sword" || figure == "buy key" && inventory.medallions < 1){
-                    alert("You can't afford that.");
+                else if(figure == "no"){
+                    alert("Fine then, it grumbles as it disappears.")
                     Cell_Standing();
                 }
                 else if(figure == "inventory"){
@@ -182,9 +206,6 @@
                     Cave_In();
                 }
             }
-            function Into_The_Darkness(){
-                alert("Thank you for playing my demo!");
-            }
             function Stone(){
                 var stone = prompt("As you pick up the stone your vision fogs over, then you find yourself in an empty room with a north and south door.").toLowerCase();
                 
@@ -206,6 +227,13 @@
                         alert("The door leads to staris leading up into darkness");
                         Into_The_Darkness();
                         break;
+                    case "inventory":
+                        invList();
+                        Stone();
+                    default:
+                        alert("You don't know how to " + stone);
+                        Stone();
+                        break;
                 }
             }
             function Troll(){
@@ -214,10 +242,39 @@
                 if(troll){
                     Stone();
                 }
+                else if(inventory.sword >= 1){
+                    alert("You pull your sword to defend yourself!");
+                    Combat_Troll();
+                }
                 else{
                     alert("The troll rips you apart, you died!");
                     Death();
                 }
+            }
+            function Combat_Troll(){
+                var fightTroll = prompt("What do you do?").toLowerCase();
+                
+                switch(fightTroll){
+                        
+                    case "swing sword":
+                        alert("You defeat the troll.");
+                        Troll_Room();
+                        break;
+                    case "inventory":
+                        invList();
+                        Combat_Troll();
+                    default:
+                        alert("The troll rips you to pieces!");
+                        Death();
+                        break;
+                                 }
+            }
+            function Troll_Room(){
+                alert("You find a room full of what's left of the trolls previous meals, with a single door on the north end.");
+                Into_The_Darkness();
+            }
+            function Into_The_Darkness(){
+                alert("Thank you for playing my demo!");
             }
             function Death(){
                 alert("Thank you for playing my demo!");
