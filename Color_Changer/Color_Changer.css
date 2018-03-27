@@ -34,7 +34,7 @@ body {
 }
 
 .main input[type="radio"]:hover + .box {
-    transmition: all .4s ease-out;
+    transition: all .4s ease-out;
     border-radius: 13px;
 }
 
